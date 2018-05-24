@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="t19.performance.dao.BasicInfoDao">
+  <resultMap id="BaseResultMap" type="t19.performance.model.BasicInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="LOCATION_ID" jdbcType="INTEGER" property="locationId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SN_CODE" jdbcType="VARCHAR" property="snCode" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="CONNECTION_TIME" jdbcType="TIMESTAMP" property="connectionTime" />
+    <result column="IS_USED" jdbcType="TINYINT" property="isUsed" />
+    <result column="FIRMWARE" jdbcType="VARCHAR" property="firmware" />
+    <result column="DEVICE_TYPE" jdbcType="TINYINT" property="deviceType" />
+    <result column="CONNECTION_STATE" jdbcType="TINYINT" property="connectionState" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="PORT" jdbcType="VARCHAR" property="port" />
+    <result column="PWD" jdbcType="VARCHAR" property="pwd" />
+    <result column="USED_AMOUNT" jdbcType="INTEGER" property="usedAmount" />
+    <result column="TOTAL_AMOUNT" jdbcType="INTEGER" property="totalAmount" />
+    <result column="USED_RECORD_AMOUNT" jdbcType="INTEGER" property="usedRecordAmount" />
+    <result column="TOTAL_RECORD_AMOUNT" jdbcType="INTEGER" property="totalRecordAmount" />
+    <result column="IS_USED_NORMAL" jdbcType="TINYINT" property="isUsedNormal" />
+    <result column="IS_RECORD_NORMAL" jdbcType="TINYINT" property="isRecordNormal" />
+    <result column="MAC_ADDRESS" jdbcType="VARCHAR" property="macAddress" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="DEPARTMENT_ID" jdbcType="INTEGER" property="departmentId" />
+    <result column="FACTORY" jdbcType="VARCHAR" property="factory" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="USE_FOR" jdbcType="VARCHAR" property="useFor" />
+    <result column="DOMAIN_ID" jdbcType="INTEGER" property="domainId" />
+    <result column="POSITION" jdbcType="VARCHAR" property="position" />
+  </resultMap>
+   <select id="selectBySn"  resultMap="BaseResultMap">
+		select * from DEVICE_BASIC_INFO where SN_CODE = #{serialNum}
+	</select>
+
+  <insert id="insert" parameterType="t19.performance.model.BasicInfo">
+   INSERT INTO device_basic_info (id, location_id, name, sn_code, update_time, connection_time, is_used, firmware,
+    device_type, connection_state, ip_address, port, pwd, used_amount, total_amount, used_record_amount, total_record_amount,
+    is_used_normal, is_record_normal, mac_address, memo, department_id, factory, type, use_for, domain_id, position )
+    VALUES
+    (#{id,jdbcType=INTEGER}, #{locationId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{snCode,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{connectionTime,jdbcType=TIMESTAMP},
+    #{isUsed,jdbcType=TINYINT}, #{firmware,jdbcType=VARCHAR}, #{deviceType,jdbcType=TINYINT}, #{connectionState,jdbcType=TINYINT}, #{ipAddress,jdbcType=VARCHAR}, #{port,jdbcType=VARCHAR},
+    #{pwd,jdbcType=VARCHAR}, #{usedAmount,jdbcType=INTEGER}, #{totalAmount,jdbcType=INTEGER}, #{usedRecordAmount,jdbcType=INTEGER}, #{totalRecordAmount,jdbcType=INTEGER},
+    #{isUsedNormal,jdbcType=TINYINT}, #{isRecordNormal,jdbcType=TINYINT}, #{macAddress,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{factory,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+    #{useFor,jdbcType=VARCHAR}, #{domainId,jdbcType=INTEGER}, #{position,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertBatch">
+    INSERT INTO device_basic_info (id, location_id, name, sn_code, update_time, connection_time, is_used, firmware,
+    device_type, connection_state, ip_address, port, pwd, used_amount, total_amount, used_record_amount, total_record_amount,
+    is_used_normal, is_record_normal, mac_address, memo, department_id, factory, type, use_for, domain_id, position )
+    VALUES
+    <foreach collection ="list" item="device" separator =",">
+      (#{device.id}, #{device.locationId}, #{device.name}, #{device.snCode}, #{device.updateTime}, #{device.connectionTime}, #{device.isUsed}, #{device.firmware},
+      #{device.deviceType}, #{device.connectionState}, #{device.ipAddress}, #{device.port}, #{device.pwd}, #{device.usedAmount}, #{device.totalAmount}, #{device.usedRecordAmount}, #{device.totalRecordAmount},
+      #{device.isUsedNormal}, #{device.isRecordNormal}, #{device.macAddress}, #{device.memo}, #{device.departmentId}, #{device.factory}, #{device.type}, #{device.useFor}, #{device.domainId}, #{device.position})
+    </foreach >
+  </insert>
+</mapper>

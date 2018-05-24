@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+     <!--<typeAliases>
+         <typeAlias alias="Image" type="com.mybatis.model.Image"/> 
+         <typeAlias alias="User" type="com.mybatis.model.User"/> 
+         <typeAlias alias="Article" type="com.mybatis.model.Article"/>
+         <typeAlias alias="atRecord" type="com.mybatis.model.AtRecordTpm"/>
+     </typeAliases>-->
+
+     <environments default="development">
+         <environment id="development">
+         <transactionManager type="JDBC"/>
+             <dataSource type="POOLED">
+             <property name="driver" value="com.mysql.jdbc.Driver"/>
+             <property name="url" value="jdbc:mysql://127.0.0.1:3306/eface0426?useUnicode=true" />
+             <property name="username" value="smartlink"/>
+             <property name="password" value="slink"/>
+             <!--<property name="url" value="jdbc:mysql://192.168.138.179:3306/eface0515?useUnicode=true" />-->
+             <!--<property name="username" value="root"/>-->
+             <!--<property name="password" value="root"/>-->
+             </dataSource>
+         </environment>
+     </environments>
+     
+     <mappers>
+         <mapper resource="t19/performance/dao/mapper/BasicInfoDao.xml"/>
+     </mappers>
+ </configuration>
